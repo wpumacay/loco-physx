@@ -1,0 +1,40 @@
+# file-exclusions
+*.o
+*.out
+*.lib
+*.pyc
+*.pyo
+*.swp
+*.swo
+*.so
+*.so*
+*.a
+*.ini
+*.log
+
+# folder-exclusions
+build/
+.vscode/
+dist/
+pytysoc.egg-info/
+tysoc_mjc.egg-info/
+
+# dependencies-exclusions
+ext/tiny_math*
+ext/tiny_utils*
+ext/tiny_renderer*
+ext/imgui*
+ext/spdlog*
+ext/pybind11*
+ext/googletest*
+ext/physx*
+core*
+
+# file-specific exclusions
+simulation.xml
+
+# logging .json files
+sess_*.json
+
+# @todo: delete once porting+refactoring has been completed
+## _legacy/
