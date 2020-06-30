@@ -24,13 +24,13 @@ namespace px {
 
         ~TPhysxSimulation();
 
-        PxPhysics* px_physics() { return m_PxPhysics.get(); }
-
-        const PxPhysics* px_physics() const { return m_PxPhysics.get(); }
-
         PxFoundation* px_foundation() { return m_PxFoundation.get(); }
 
         const PxFoundation* px_foundation() const { return m_PxFoundation.get(); }
+
+        PxPhysics* px_physics() { return m_PxPhysics.get(); }
+
+        const PxPhysics* px_physics() const { return m_PxPhysics.get(); }
 
         PxScene* px_scene() { return m_PxScene.get(); }
 

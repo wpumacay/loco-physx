@@ -123,17 +123,17 @@ target_link_libraries( locoPhysicsPHYSX
 
 # ******************************************************************************
 
-#### if ( LOCO_PHYSX_IS_MASTER_PROJECT AND LOCO_CORE_BUILD_TESTS )
-####     enable_testing()
-####     add_subdirectory( tests )
-#### endif()
+if ( LOCO_PHYSX_IS_MASTER_PROJECT AND LOCO_CORE_BUILD_TESTS )
+    enable_testing()
+    add_subdirectory( tests )
+endif()
 
 if ( LOCO_PHYSX_IS_MASTER_PROJECT )
     message( "|---------------------------------------------------------|" )
-    message( "|      LOCOMOTION SIMULATION TOOLKIT (Dart-sim backend)   |" )
+    message( "|      LOCOMOTION SIMULATION TOOLKIT (Physx-sim backend)  |" )
     message( "|---------------------------------------------------------|" )
     message( "
-                                   .--~~,__   (Dart-sim)
+                                   .--~~,__   (Physx-sim)
                       :-....,-------`~~'._.'
                        `-,,,  ,_      ;'~U'
                         _,-' ,'`-__; '--.
