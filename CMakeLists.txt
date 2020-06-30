@@ -4,8 +4,8 @@ cmake_minimum_required( VERSION 3.0.0 )
 project( LocoPhysX )
 
 set( CMAKE_CXX_STANDARD 11 )
-set( CMAKE_CXX_FLAGS_DEBUG "-g ${CMAKE_CXX_FLAGS}" )
-set( CMAKE_CXX_FLAGS_RELEASE "-O2 ${CMAKE_CXX_FLAGS}" )
+set( CMAKE_CXX_FLAGS_DEBUG "-g -DNDEBUG ${CMAKE_CXX_FLAGS}" )
+set( CMAKE_CXX_FLAGS_RELEASE "-O3 ${CMAKE_CXX_FLAGS}" )
 
 # In case nobody set the project type, set it (parent project might have set it for all)
 if ( NOT CMAKE_BUILD_TYPE )
@@ -102,6 +102,7 @@ set( LOCO_PHYSX_INCLUDE_DIRS
      "${CMAKE_SOURCE_DIR}/ext/tiny_math/include"
      "${CMAKE_SOURCE_DIR}/ext/tiny_utils/include"
      "${CMAKE_SOURCE_DIR}/ext/physx/physx/include"
+     "${CMAKE_SOURCE_DIR}/ext/physx/pxshared/include"
      "${EIGEN3_INCLUDE_DIR}" )
 include_directories( ${LOCO_PHYSX_INCLUDE_DIRS} )
 
