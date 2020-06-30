@@ -91,7 +91,8 @@ endif()
 find_package( assimp REQUIRED )
 
 set( LOCO_PHYSX_SRCS
-     "${CMAKE_CURRENT_SOURCE_DIR}/src/loco_common_physx.cpp" )
+     "${CMAKE_CURRENT_SOURCE_DIR}/src/loco_common_physx.cpp"
+     "${CMAKE_CURRENT_SOURCE_DIR}/src/loco_simulation_physx.cpp" )
 
 set( LOCO_PHYSX_INCLUDE_DIRS
      "${CMAKE_CURRENT_SOURCE_DIR}/include"
