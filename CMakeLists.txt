@@ -50,9 +50,14 @@ if ( LOCO_PHYSX_IS_MASTER_PROJECT )
     endif()
 
     add_subdirectory( ext )
+    # Include PhysX built library @ ext/physx_build/ -----------------------------------
+    link_directories( "${CMAKE_SOURCE_DIR}/ext/physx_build/bin/linux.clang/debug/" )
+    include_directories( "${CMAKE_SOURCE_DIR}/ext/physx_build/include/" )
+    include_directories( "${CMAKE_SOURCE_DIR}/ext/physx_build/source/" )
+    #-----------------------------------------------------------------------------------
     add_subdirectory( core )
 
-    # Repeat some required definitions (for dart-backend target and tests targets) #################
+    # Repeat some required definitions (for physx-backend target and tests targets) #################
     if ( LOCO_CORE_BUILD_WITH_LOGS )
         add_definitions( -DLOCO_CORE_USE_LOGS )
     endif()
@@ -101,10 +106,7 @@ set( LOCO_PHYSX_INCLUDE_DIRS
      "${CMAKE_SOURCE_DIR}/core/ext/tinyxml2"
      "${CMAKE_SOURCE_DIR}/ext/spdlog/include"
      "${CMAKE_SOURCE_DIR}/ext/tiny_math/include"
-     "${CMAKE_SOURCE_DIR}/ext/tiny_utils/include"
-     "${CMAKE_SOURCE_DIR}/ext/physx/physx/include"
-     "${CMAKE_SOURCE_DIR}/ext/physx/pxshared/include"
-     "${EIGEN3_INCLUDE_DIR}" )
+     "${CMAKE_SOURCE_DIR}/ext/tiny_utils/include" )
 include_directories( ${LOCO_PHYSX_INCLUDE_DIRS} )
 
 # Configure the resulting library
@@ -112,7 +114,12 @@ add_library( locoPhysicsPHYSX SHARED
              ${LOCO_PHYSX_SRCS} )
 target_link_libraries( locoPhysicsPHYSX
                        loco_core
-                       assimp )
+                       assimp
+                       PhysXExtensions_static_64
+                       PhysXCommon_64
+                       PhysXFoundation_64
+                       PhysXCooking_64
+                       PhysX_64 )
 
 # ******************************************************************************
 
