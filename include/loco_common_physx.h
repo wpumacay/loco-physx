@@ -6,28 +6,26 @@
 
 using namespace physx;
 
+#define LOCO_PHYSX_UNIQUE_PTR_DELETER(X)        \
+    struct X##Deleter                           \
+    {                                           \
+        void operator() ( X* px_obj_pointer )   \
+        {                                       \
+            if ( px_obj_pointer )               \
+                px_obj_pointer->release();      \
+        }                                       \
+    };
+
 namespace loco {
 namespace px {
 
-    struct PxFoundationDeleter
-    {
-        void operator() ( PxFoundation* px_foundation );
-    };
-
-    struct PxPhysicsDeleter
-    {
-        void operator() ( PxPhysics* px_physics );
-    };
-
-    struct PxDefaultCpuDispatcherDeleter
-    {
-        void operator() ( PxDefaultCpuDispatcher* px_cpu_dispatcher );
-    };
-
-    struct PxSceneDeleter
-    {
-        void operator() ( PxScene* px_scene );
-    };
+    LOCO_PHYSX_UNIQUE_PTR_DELETER(PxFoundation)
+    LOCO_PHYSX_UNIQUE_PTR_DELETER(PxPhysics)
+    LOCO_PHYSX_UNIQUE_PTR_DELETER(PxDefaultCpuDispatcher)
+    LOCO_PHYSX_UNIQUE_PTR_DELETER(PxScene)
+    LOCO_PHYSX_UNIQUE_PTR_DELETER(PxMaterial)
+    LOCO_PHYSX_UNIQUE_PTR_DELETER(PxShape)
+    LOCO_PHYSX_UNIQUE_PTR_DELETER(PxRigidDynamic)
 
     PxVec3 vec3_to_px( const TVec3& vec );
     PxVec4 vec4_to_px( const TVec4& vec );

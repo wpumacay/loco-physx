@@ -4,30 +4,6 @@
 namespace loco {
 namespace px {
 
-    void PxFoundationDeleter::operator() ( PxFoundation* px_foundation )
-    {
-        if ( px_foundation )
-            px_foundation->release();
-    }
-
-    void PxPhysicsDeleter::operator() ( PxPhysics* px_physics )
-    {
-        if ( px_physics )
-            px_physics->release();
-    }
-
-    void PxDefaultCpuDispatcherDeleter::operator() ( PxDefaultCpuDispatcher* px_cpu_dispatcher )
-    {
-        if( px_cpu_dispatcher )
-            px_cpu_dispatcher->release();
-    }
-
-    void PxSceneDeleter::operator() ( PxScene* px_scene )
-    {
-        if( px_scene )
-            px_scene->release();
-    }
-
     PxVec3 vec3_to_px( const TVec3& vec )
     {
         return PxVec3( vec.x(), vec.y(), vec.z() );
