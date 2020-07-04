@@ -63,4 +63,67 @@ namespace px {
     {
         return mat4_from_px( PxMat44( tf ) );
     }
+
+    double compute_primitive_volume( const eShapeType& shape, const TVec3& size )
+    {
+        /**/ if ( shape == eShapeType::BOX ) return size.x() * size.y() * size.z();
+        else if ( shape == eShapeType::SPHERE ) return (4. / 3.) * loco::PI * size.x() * size.x() * size.x();
+        else if ( shape == eShapeType::CYLINDER ) return loco::PI * size.x() * size.x() * size.y();
+        else if ( shape == eShapeType::CAPSULE ) return loco::PI * size.x() * size.x() * size.y() + (4. / 3.) * loco::PI * size.x() * size.x() * size.x();
+        else if ( shape == eShapeType::ELLIPSOID ) return (4. / 3.) * loco::PI * size.x() * size.y() * size.z();
+
+        LOCO_CORE_ERROR( "compute_primitive_volume >>> unsupported shape: {0}", ToString( shape ) );
+        return 1.0;
+    }
+
+    std::unique_ptr<PxShape, PxShapeDeleter> CreateCollisionShape(
+                                                    PxPhysics* px_physics,
+                                                    PxMaterial* px_material,
+                                                    const TShapeData& data )
+    {
+        PxShape* px_shape = nullptr;
+        const auto shape_type = data.type;
+        /**/ if ( shape_type == eShapeType::BOX )
+        {
+            const float half_x = 0.5f * data.size.x();
+            const float half_y = 0.5f * data.size.y();
+            const float half_z = 0.5f * data.size.z();
+            auto box_geometry = PxBoxGeometry( half_x, half_y, half_z );
+            px_shape = px_physics->createShape( box_geometry, *px_material );
+        }
+        else if ( shape_type == eShapeType::SPHERE )
+        {
+            const float radius = data.size.x();
+            auto sphere_geometry = PxSphereGeometry( radius );
+            px_shape = px_physics->createShape( sphere_geometry, *px_material );
+        }
+        else if ( shape_type == eShapeType::CYLINDER )
+        {
+            // @todo: implement me
+        }
+        else if ( shape_type == eShapeType::CAPSULE )
+        {
+            const float radius = data.size.x();
+            const float half_height = 0.5f * data.size.y();
+            auto capsule_geometry = PxCapsuleGeometry( radius, half_height );
+            px_shape = px_physics->createShape( capsule_geometry, *px_material );
+            // Set local pose such that capsule-axis is aligned with z-axis
+            PxTransform local_pose( PxQuat( PxHalfPi, PxVec3( 0.0f, 1.0f, 0.0f ) ) );
+            px_shape->setLocalPose( local_pose );
+        }
+        else if ( shape_type == eShapeType::ELLIPSOID )
+        {
+            // @todo: implement me
+        }
+        else if ( shape_type == eShapeType::MESH )
+        {
+            // @todo: implement me
+        }
+        else if ( shape_type == eShapeType::HFIELD )
+        {
+            // @todo: implement me
+        }
+
+        return std::unique_ptr<PxShape, px::PxShapeDeleter>( px_shape );
+    }
 }}

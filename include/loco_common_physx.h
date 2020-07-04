@@ -38,4 +38,12 @@ namespace px {
     TMat3 mat3_from_px( const PxMat33& mat );
     TMat4 mat4_from_px( const PxMat44& mat );
     TMat4 tf_from_px( const PxTransform& tf );
+
+    // @todo: move to loco-core
+    double compute_primitive_volume( const eShapeType& shape, const TVec3& size );
+
+    std::unique_ptr<PxShape, PxShapeDeleter> CreateCollisionShape(
+                                                    PxPhysics* px_physics,
+                                                    PxMaterial* px_material,
+                                                    const TShapeData& data );
 }}
