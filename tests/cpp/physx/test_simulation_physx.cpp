@@ -10,7 +10,7 @@ TEST( TestLocoPhysxSimulation, TestPhysxSimulationFunctionality )
     auto body_obj = std::make_unique<loco::primitives::TCapsule>( "capsule", 0.2f, 0.5f, loco::TVec3( 1.0f, 1.0f, 1.0f ), loco::TMat3() );
     scenario->AddSingleBody( std::move( body_obj ) );
 
-    auto simulation = std::make_unique<loco::px::TPhysxSimulation>( scenario.get() );
+    auto simulation = std::make_unique<loco::TPhysxSimulation>( scenario.get() );
     simulation->Initialize();
     simulation->Step();
     simulation->Reset();

@@ -31,7 +31,7 @@ namespace primitives {
         const auto shape_type = m_ColliderRef->shape();
 
         if ( rigid_type == PxActorType::Enum::eRIGID_DYNAMIC && 
-             ( shape_type == eShapeType::PLANE || shape_type == eShapeType::HFIELD ) )
+             ( shape_type == eShapeType::PLANE || shape_type == eShapeType::HEIGHTFIELD ) )
             LOCO_CORE_ERROR( "TPhyxSingleBodyColliderAdapter::Build >>> shape-type {0} can't be used with "
                              "physx-rigid-actors of dynamic type", loco::ToString( shape_type ) );
 

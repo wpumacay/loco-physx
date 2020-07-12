@@ -10,7 +10,6 @@ namespace loco {
 }
 
 namespace loco {
-namespace px {
 
     class TPhysxSimulation : public TISimulation
     {
@@ -58,13 +57,15 @@ namespace px {
 
     private :
 
-        std::unique_ptr<PxFoundation, PxFoundationDeleter> m_PxFoundation;
+        std::unique_ptr<PxFoundation, px::PxFoundationDeleter> m_PxFoundation;
 
-        std::unique_ptr<PxPhysics, PxPhysicsDeleter> m_PxPhysics;
+        std::unique_ptr<PxPhysics, px::PxPhysicsDeleter> m_PxPhysics;
 
-        std::unique_ptr<PxScene, PxSceneDeleter> m_PxScene;
+        std::unique_ptr<PxScene, px::PxSceneDeleter> m_PxScene;
 
-        std::unique_ptr<PxDefaultCpuDispatcher, PxDefaultCpuDispatcherDeleter> m_PxDispatcher;
+        std::unique_ptr<PxDefaultCpuDispatcher, px::PxDefaultCpuDispatcherDeleter> m_PxDispatcher;
+
+        std::unique_ptr<PxCooking, px::PxCookingDeleter> m_PxCooking;
 
         PxDefaultAllocator m_PxAllocator;
 
@@ -72,4 +73,4 @@ namespace px {
     };
 
     extern "C" TISimulation* simulation_create( TScenario* scenario_ref );
-}}
+}

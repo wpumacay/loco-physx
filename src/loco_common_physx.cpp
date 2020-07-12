@@ -115,11 +115,15 @@ namespace px {
         {
             // @todo: implement me
         }
-        else if ( shape_type == eShapeType::MESH )
+        else if ( shape_type == eShapeType::CONVEX_MESH )
         {
             // @todo: implement me
         }
-        else if ( shape_type == eShapeType::HFIELD )
+        else if ( shape_type == eShapeType::TRIANGULAR_MESH )
+        {
+            // @todo: implement me
+        }
+        else if ( shape_type == eShapeType::HEIGHTFIELD )
         {
             // @todo: implement me
         }
