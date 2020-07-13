@@ -43,8 +43,29 @@ namespace px {
     // @todo: move to loco-core
     double compute_primitive_volume( const eShapeType& shape, const TVec3& size );
 
-    std::unique_ptr<PxShape, PxShapeDeleter> CreateCollisionShape(
-                                                    PxPhysics* px_physics,
-                                                    PxMaterial* px_material,
-                                                    const TShapeData& data );
+    std::unique_ptr<PxShape, PxShapeDeleter> CreateCollisionShape( PxPhysics* px_physics,
+                                                                   PxCooking* px_cooking,
+                                                                   PxMaterial* px_material,
+                                                                   const TShapeData& data );
+
+
+    PxShape* CreateConvexHullShape( PxPhysics* px_physics,
+                                    PxCooking* px_cooking,
+                                    PxMaterial* px_material,
+                                    const std::vector<TVec3>& vertices );
+
+    std::vector<TVec3> CreateCylinderVertices( const TShapeData& data );
+
+    std::vector<TVec3> CreateEllipsoidVertices( const TShapeData& data );
+
+    std::vector<TVec3> CreateConvexMeshVertices( const TShapeData& data );
+
+    void _CollectMeshVerticesFromFile( std::vector<TVec3>& mesh_vertices, const TShapeData& data );
+
+    void _CollectMeshVerticesFromUser( std::vector<TVec3>& mesh_vertices, const TShapeData& data );
+
+    struct aiSceneDeleter
+    {
+        void operator() ( const aiScene* assimp_scene ) const;
+    };
 }}

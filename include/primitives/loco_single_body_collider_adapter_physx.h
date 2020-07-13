@@ -43,6 +43,8 @@ namespace primitives {
 
         void SetPhysxPhysics( PxPhysics* px_physics_ref ) { m_PxPhysicsRef = px_physics_ref; }
 
+        void SetPhysxCooking( PxCooking* px_cooking_ref ) { m_PxCookingRef = px_cooking_ref; }
+
         void SetPhysxRigidActor( PxRigidActor* px_rigid_actor_ref ) { m_PxRigidActorRef = px_rigid_actor_ref; }
 
         PxMaterial* physx_material() { return m_PxMaterialObj.get(); }
@@ -56,6 +58,8 @@ namespace primitives {
     private :
 
         PxPhysics* m_PxPhysicsRef = nullptr;
+
+        PxCooking* m_PxCookingRef = nullptr;
 
         PxRigidActor* m_PxRigidActorRef = nullptr;
 

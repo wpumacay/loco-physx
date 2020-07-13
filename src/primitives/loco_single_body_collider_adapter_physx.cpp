@@ -25,13 +25,13 @@ namespace primitives {
         const float restitution_coeff = 0.7f;
         m_PxMaterialObj = std::unique_ptr<PxMaterial, px::PxMaterialDeleter>( 
                                     m_PxPhysicsRef->createMaterial( static_friction, dynamic_friction, restitution_coeff ) );
-        m_PxShapeObj = px::CreateCollisionShape( m_PxPhysicsRef, m_PxMaterialObj.get(), m_ColliderRef->data() );
+        m_PxShapeObj = px::CreateCollisionShape( m_PxPhysicsRef, m_PxCookingRef, m_PxMaterialObj.get(), m_ColliderRef->data() );
         m_PxRigidActorRef->attachShape( *m_PxShapeObj );
         const auto rigid_type = m_PxRigidActorRef->getType();
         const auto shape_type = m_ColliderRef->shape();
 
         if ( rigid_type == PxActorType::Enum::eRIGID_DYNAMIC && 
-             ( shape_type == eShapeType::PLANE || shape_type == eShapeType::HEIGHTFIELD ) )
+             ( shape_type == eShapeType::PLANE || shape_type == eShapeType::TRIANGULAR_MESH || shape_type == eShapeType::HEIGHTFIELD ) )
             LOCO_CORE_ERROR( "TPhyxSingleBodyColliderAdapter::Build >>> shape-type {0} can't be used with "
                              "physx-rigid-actors of dynamic type", loco::ToString( shape_type ) );
 
