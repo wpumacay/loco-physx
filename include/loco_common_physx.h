@@ -26,6 +26,7 @@ namespace px {
     LOCO_PHYSX_UNIQUE_PTR_DELETER(PxScene)
     LOCO_PHYSX_UNIQUE_PTR_DELETER(PxMaterial)
     LOCO_PHYSX_UNIQUE_PTR_DELETER(PxShape)
+    LOCO_PHYSX_UNIQUE_PTR_DELETER(PxRigidActor)
     LOCO_PHYSX_UNIQUE_PTR_DELETER(PxRigidDynamic)
 
     PxVec3 vec3_to_px( const TVec3& vec );

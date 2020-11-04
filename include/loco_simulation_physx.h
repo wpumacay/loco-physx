@@ -57,6 +57,10 @@ namespace loco {
 
     private :
 
+        void _CreateSingleBodyAdapters();
+
+    private :
+
         std::unique_ptr<PxFoundation, px::PxFoundationDeleter> m_PxFoundation;
 
         std::unique_ptr<PxPhysics, px::PxPhysicsDeleter> m_PxPhysics;

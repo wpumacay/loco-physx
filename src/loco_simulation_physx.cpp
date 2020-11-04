@@ -28,6 +28,24 @@ namespace loco {
                                         PxCreateCooking( PX_PHYSICS_VERSION, *m_PxFoundation, px_cooking_params ) );
         if ( !m_PxCooking )
             LOCO_CORE_ERROR( "TPhysxSimulation >>> Unable to initialize cooking library" );
+
+        _CreateSingleBodyAdapters();
+    }
+
+    void TPhysxSimulation::_CreateSingleBodyAdapters()
+    {
+        auto single_bodies = m_ScenarioRef->GetSingleBodiesList();
+        for ( auto single_body : single_bodies )
+        {
+            auto single_body_adapter = std::make_unique<primitives::TPhysxSingleBodyAdapter>( single_body );
+            single_body->SetBodyAdapter( single_body_adapter.get() );
+            // Physx-objects are required for building related physx-resources for colliders and rigid-bodies
+            single_body_adapter->SetPhysxPhysics( m_PxPhysics.get() );
+            single_body_adapter->SetPhysxScene( m_PxScene.get() );
+            single_body_adapter->SetPhysxCooking( m_PxCooking.get() );
+            //--------------------------------------------------------------------------------------
+            m_SingleBodyAdapters.push_back( std::move( single_body_adapter ) );
+        }
     }
 
     TPhysxSimulation::~TPhysxSimulation()
@@ -51,7 +69,7 @@ namespace loco {
 
     void TPhysxSimulation::_SimStepInternal( const TScalar& dt )
     {
-        LOCO_CORE_ASSERT( m_PxScene, "TPhysSimulation::_SimStepInternal >>> PxScene object is required, but got nullptr instead" );
+        LOCO_CORE_ASSERT( m_PxScene, "TPhysxSimulation::_SimStepInternal >>> PxScene object is required, but got nullptr instead" );
         const double sim_step_time = ( dt <= 0 ) ? m_FixedTimeStep : dt;
         const ssize_t sim_num_substeps = ssize_t(sim_step_time / m_FixedTimeStep);
         for ( ssize_t i = 0; i < sim_num_substeps; i++ )

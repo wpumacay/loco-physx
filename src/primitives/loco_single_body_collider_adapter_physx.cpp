@@ -35,6 +35,7 @@ namespace primitives {
             LOCO_CORE_ERROR( "TPhyxSingleBodyColliderAdapter::Build >>> shape-type {0} can't be used with "
                              "physx-rigid-actors of dynamic type", loco::ToString( shape_type ) );
 
+        // @todo: move to single-body adapter
         if ( rigid_type == PxActorType::Enum::eRIGID_DYNAMIC )
         {
             if ( auto px_rigid_dynamic = m_PxRigidActorRef->is<PxRigidDynamic>() )
